@@ -109,7 +109,7 @@ def build_anytree(node, parent=None): # Побудова дерева
 
 # Створення дерева
 root = None
-keys = random.sample(range(-10, 11), 10)
+keys = random.sample(range(-20, 21), 10)
 
 for key in keys:
     root = insert(root, key)
