@@ -40,9 +40,8 @@ def visualize_traversal(tree_root, traversal_type):
     tree = add_edges(tree, tree_root, pos)
     
     # Ініціалізація кольорів для обходу
-    step = 0
     total_steps = len(tree.nodes())
-    colors = {node: generate_color(step, total_steps) for step, node in enumerate(tree.nodes())}
+    step = 0
     
     # Виконання обходу
     visited_order = []
@@ -54,7 +53,8 @@ def visualize_traversal(tree_root, traversal_type):
             if node not in visited:
                 visited.add(node)
                 visited_order.append(node)
-                tree.nodes[node.id]['color'] = colors[node.id]
+                tree.nodes[node.id]['color'] = generate_color(step, total_steps)
+                step += 1
                 if node.right:
                     stack.append(node.right)
                 if node.left:
@@ -67,7 +67,8 @@ def visualize_traversal(tree_root, traversal_type):
             if node not in visited:
                 visited.add(node)
                 visited_order.append(node)
-                tree.nodes[node.id]['color'] = colors[node.id]
+                tree.nodes[node.id]['color'] = generate_color(step, total_steps)
+                step += 1
                 if node.left:
                     queue.append(node.left)
                 if node.right:

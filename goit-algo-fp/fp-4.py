@@ -37,14 +37,49 @@ def draw_heap(heap_root):
     nx.draw(heap, pos=pos, labels=labels, arrows=False, node_size=2500, node_color=colors)
     plt.show()
 
-# Створення бінарної купи (максимальної)
-root = Node(10)
-root.left = Node(7)
-root.right = Node(5)
-root.left.left = Node(3)
-root.left.right = Node(4)
-root.right.left = Node(1)
-root.right.right = Node(2)
+def heapify(arr, n, i):
+    largest = i
+    left = 2 * i + 1
+    right = 2 * i + 2
+
+    if left < n and arr[left] > arr[largest]:
+        largest = left
+
+    if right < n and arr[right] > arr[largest]:
+        largest = right
+
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        heapify(arr, n, largest)
+
+def build_max_heap(arr):
+    n = len(arr)
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(arr, n, i)
+    return arr
+
+def build_tree_from_heap(arr):
+    if not arr:
+        return None
+
+    nodes = [Node(val) for val in arr]
+    for i in range(len(arr)):
+        left_index = 2 * i + 1
+        right_index = 2 * i + 2
+        if left_index < len(arr):
+            nodes[i].left = nodes[left_index]
+        if right_index < len(arr):
+            nodes[i].right = nodes[right_index]
+    return nodes[0]
+
+# Вхідний список чисел
+arr = [10, 7, 5, 3, 4, 1, 2]
+
+# Перетворення списку у максимальну купу
+max_heap = build_max_heap(arr)
+
+# Побудова дерева з купи
+heap_root = build_tree_from_heap(max_heap)
 
 # Відображення купи
-draw_heap(root)
+draw_heap(heap_root)
